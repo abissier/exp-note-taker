@@ -18,12 +18,12 @@ function createNoteId() {
 module.exports = function (app) {
 
     app.get('/api/notes', function (req, res) {
-        createNoteId();
-        res.json(dbJSON.notes);
+        const data = JSON.parse(fs.readFileSync(path.resolve('App/Data', 'db.json'), "utf8"));
+        res.json(data.notes);
     });
 
     app.post('/api/notes', function (req, res) {
-        let id = createNoteId();
+        const id = createNoteId();
         let note = req.body;
         note.id = id;
         
@@ -31,5 +31,32 @@ module.exports = function (app) {
         dbJSON.idCounter = id; 
 
         fs.writeFileSync(path.resolve('App/Data', 'db.json'), JSON.stringify(dbJSON), "utf8");
+
+        res.json(dbJSON)
     });
+
+    app.delete('/api/notes/:id', function(req, res) {
+
+        let data = fs.readFileSync(path.resolve('App/Data', 'db.json'), "utf8");
+
+        var parsedData = JSON.parse(data);
+
+        var allNotes = parsedData.notes;
+
+        var chosenNote = req.params.id;
+
+        var newArray = allNotes.filter(note => {
+            return note.id !== +chosenNote;
+        });
+
+        parsedData.notes = newArray;
+
+        fs.writeFileSync(path.resolve('App/Data', 'db.json'), JSON.stringify(parsedData), "utf8", function(err) {
+            if (err) return console.log(err);
+            res.json(fs.readFileSync(path.resolve('App/Data', 'db.json'), "utf8"));
+        });
+        
+        res.json(parsedData)
+
+    })
 }

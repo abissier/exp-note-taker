@@ -26,16 +26,16 @@ module.exports = function (app) {
         const id = createNoteId();
         let note = req.body;
         note.id = id;
-        
+
         dbJSON.notes.push(note);
-        dbJSON.idCounter = id; 
+        dbJSON.idCounter = id;
 
         fs.writeFileSync(path.resolve('App/Data', 'db.json'), JSON.stringify(dbJSON), "utf8");
 
         res.json(dbJSON)
     });
 
-    app.delete('/api/notes/:id', function(req, res) {
+    app.delete('/api/notes/:id', function (req, res) {
 
         let data = fs.readFileSync(path.resolve('App/Data', 'db.json'), "utf8");
 
@@ -51,11 +51,11 @@ module.exports = function (app) {
 
         parsedData.notes = newArray;
 
-        fs.writeFileSync(path.resolve('App/Data', 'db.json'), JSON.stringify(parsedData), "utf8", function(err) {
+        fs.writeFileSync(path.resolve('App/Data', 'db.json'), JSON.stringify(parsedData), "utf8", function (err) {
             if (err) return console.log(err);
             res.json(fs.readFileSync(path.resolve('App/Data', 'db.json'), "utf8"));
         });
-        
+
         res.json(parsedData)
 
     })

@@ -20,7 +20,7 @@ One DELETE request to delete the note w the matching id from the JSON file.
 HTML, CSS, Javascript, Express 
 
 ### Project Demo
-![](note-taker.gif)
+![](note-taker2.gif)
 
 
 

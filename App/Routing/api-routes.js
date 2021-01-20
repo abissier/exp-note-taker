@@ -27,12 +27,14 @@ module.exports = function (app) {
         let note = req.body;
         note.id = id;
 
-        dbJSON.notes.push(note);
-        dbJSON.idCounter = id;
+        const data = JSON.parse(fs.readFileSync(path.resolve('App/Data', 'db.json'), "utf8"));
 
-        fs.writeFileSync(path.resolve('App/Data', 'db.json'), JSON.stringify(dbJSON), "utf8");
+        data.notes.push(note);
+        data.idCounter = id;
 
-        res.json(dbJSON)
+        fs.writeFileSync(path.resolve('App/Data', 'db.json'), JSON.stringify(data), "utf8");
+
+        res.json(data)
     });
 
     app.delete('/api/notes/:id', function (req, res) {

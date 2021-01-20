@@ -1,4 +1,3 @@
-var dbJSON = require('../Data/db.json');
 var path = require('path');
 const fs = require('fs');
 

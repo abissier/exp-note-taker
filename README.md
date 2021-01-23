@@ -4,6 +4,7 @@
 * [Description](#description)
 * [Technologies Used](#technologies-used)
 * [Project Demo](#project-demo)
+* [Project Link](#project-link)
 
 
 ### Description 
@@ -21,6 +22,9 @@ HTML, CSS, Javascript, Express
 
 ### Project Demo
 ![](note-taker2.gif)
+
+### Project Link
+https://exp-note-taker.herokuapp.com/
 
 
 
